@@ -43,7 +43,7 @@ add_executable(${CMAKE_PROJECT_NAME})
 include("mx-generated.cmake")
 
 # Enable CMake support for ASM and C languages
-enable_language(C ASM)
+enable_language(C CXX ASM)
 
 # In order to use CMake for cross-compiling
 set(CMAKE_CXX_COMPILER_FORCED "true") 
@@ -56,6 +56,7 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+    ../Drivers/BSP/STM32H747I-DISCO/
     ../Drivers/BSP/Components/Common
     ../Drivers/STM32H7xx_HAL_Driver/Inc
 )
@@ -74,7 +75,9 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ../Drivers/BSP/Components/otm8009a/otm8009a_reg.c
     ../Drivers/BSP/Components/ft6x06/ft6x06.c
     ../Drivers/BSP/Components/ft6x06/ft6x06_reg.c
-    ../Drivers/BSP/Components/is42s32800j/is42s32800j.c    
+    ../Drivers/BSP/Components/is42s32800j/is42s32800j.c
+
+    ./Core/Src/appmain.cpp
 )
 
 # Link directories setup
