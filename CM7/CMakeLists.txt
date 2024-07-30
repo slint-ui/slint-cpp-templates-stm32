@@ -99,6 +99,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ./Core/Src/appmain.cpp
 )
 
+slint_target_sources(${CMAKE_PROJECT_NAME} ./Core/Src/ui/appwindow.slint)
+
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined library search paths

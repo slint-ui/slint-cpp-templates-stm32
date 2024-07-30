@@ -2,11 +2,13 @@
 // SPDX-License-Identifier: MIT
 
 #include <main.h>
+#include <slint-stm.h>
 #include <stdio.h>
 #include <stm32h747i_discovery.h>
 #include <stm32h747i_discovery_lcd.h>
 #include <stm32h747i_discovery_ts.h>
-#include <slint-stm.h>
+
+#include "appwindow.h"
 
 extern "C" int appmain() {
   COM_InitTypeDef comlog;
@@ -43,6 +45,13 @@ extern "C" int appmain() {
   }
 
   slint_stm_init(SlintPlatformConfiguration());
+
+  auto app_window = AppWindow::create();
+
+  app_window->on_request_increase_value(
+      [&] { app_window->set_counter(app_window->get_counter() + 1); });
+
+  app_window->run();
 
   return 0;
 }
