@@ -6,6 +6,7 @@
 #include <stm32h747i_discovery.h>
 #include <stm32h747i_discovery_lcd.h>
 #include <stm32h747i_discovery_ts.h>
+#include <slint-stm.h>
 
 extern "C" int appmain() {
   COM_InitTypeDef comlog;
@@ -40,6 +41,8 @@ extern "C" int appmain() {
   if (BSP_TS_Init(0, &hTS) != 0) {
     Error_Handler();
   }
+
+  slint_stm_init(SlintPlatformConfiguration());
 
   return 0;
 }

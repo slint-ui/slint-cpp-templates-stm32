@@ -36,6 +36,25 @@ include("../gcc-arm-none-eabi.cmake")
 set(CMAKE_PROJECT_NAME slint-cpp-template-stm32h747i-disco_CM7)
 project(${CMAKE_PROJECT_NAME})
 
+set(SLINT_STM32_HAL_BSP_INCLUDE_DIRECTORIES
+   ${CMAKE_SOURCE_DIR}/Core/Inc
+   ${CMAKE_SOURCE_DIR}/../Drivers/BSP/STM32H747I-DISCO
+   ${CMAKE_SOURCE_DIR}/../Drivers/BSP/Components/Common
+   ${CMAKE_SOURCE_DIR}/../Drivers/STM32H7xx_HAL_Driver/Inc
+   ${CMAKE_SOURCE_DIR}/../Drivers/CMSIS/Include
+   ${CMAKE_SOURCE_DIR}/../Drivers/CMSIS/Device/ST/STM32H7xx/Include
+)
+set(SLINT_STM32_BSP_NAME stm32h747i_discovery)
+
+include(FetchContent)
+FetchContent_Declare(
+    Slint
+    GIT_REPOSITORY https://github.com/slint-ui/slint
+    GIT_TAG feature/stm32-cpp
+    SOURCE_SUBDIR api/cpp/stm32
+)
+FetchContent_MakeAvailable(Slint)
+
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
 
@@ -88,6 +107,7 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined libraries
+    SlintSTM32
 )
 
 # Validate that STM32CubeMX code is compatible with C standard
