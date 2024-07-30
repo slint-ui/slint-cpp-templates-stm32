@@ -1,8 +1,9 @@
 set(CMAKE_SYSTEM_NAME               Generic)
 set(CMAKE_SYSTEM_PROCESSOR          arm)
 
-set(CMAKE_C_COMPILER_FORCED TRUE)
-set(CMAKE_CXX_COMPILER_FORCED TRUE)
+# Slint: Commented out as it breaks cmake sub-project compilation.
+# set(CMAKE_C_COMPILER_FORCED TRUE)
+# set(CMAKE_CXX_COMPILER_FORCED TRUE)
 set(CMAKE_C_COMPILER_ID GNU)
 set(CMAKE_CXX_COMPILER_ID GNU)
 
