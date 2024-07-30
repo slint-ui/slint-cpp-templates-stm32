@@ -56,11 +56,25 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+    ../Drivers/BSP/Components/Common
+    ../Drivers/STM32H7xx_HAL_Driver/Inc
 )
 
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
+    ../Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery.c
+    ../Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_lcd.c
+    ../Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c
+    ../Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_sdram.c
+    ../Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_bus.c
+    ../Drivers/BSP/Components/nt35510/nt35510.c
+    ../Drivers/BSP/Components/nt35510/nt35510_reg.c
+    ../Drivers/BSP/Components/otm8009a/otm8009a.c
+    ../Drivers/BSP/Components/otm8009a/otm8009a_reg.c
+    ../Drivers/BSP/Components/ft6x06/ft6x06.c
+    ../Drivers/BSP/Components/ft6x06/ft6x06_reg.c
+    ../Drivers/BSP/Components/is42s32800j/is42s32800j.c    
 )
 
 # Link directories setup
