@@ -5,6 +5,8 @@
 #include <stm32h735g_discovery_lcd.h>
 #include <stm32h735g_discovery_ts.h>
 
+#include "appwindow.h"
+
 extern "C" int appmain(void) {
   if (BSP_LCD_InitEx(0, LCD_ORIENTATION_LANDSCAPE, LCD_PIXEL_FORMAT_RGB565,
                      LCD_DEFAULT_WIDTH, LCD_DEFAULT_HEIGHT) != 0) {
@@ -17,7 +19,7 @@ extern "C" int appmain(void) {
   TS_Init_t hTS;
   hTS.Width = LCD_DEFAULT_WIDTH;
   hTS.Height = LCD_DEFAULT_HEIGHT;
-  hTS.Orientation = TS_SWAP_XY | TS_SWAP_Y;
+  hTS.Orientation = TS_SWAP_XY;
   hTS.Accuracy = 0;
   /* Touchscreen initialization */
   if (BSP_TS_Init(0, &hTS) != 0) {
@@ -25,6 +27,13 @@ extern "C" int appmain(void) {
   }
 
   slint_stm_init(SlintPlatformConfiguration());
+
+  auto app_window = AppWindow::create();
+
+  app_window->on_request_increase_value(
+      [&] { app_window->set_counter(app_window->get_counter() + 1); });
+
+  app_window->run();
 
   return 0;
 }

@@ -83,6 +83,10 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined symbols
 )
 
+slint_target_sources(${CMAKE_PROJECT_NAME}
+    ./Core/Src/ui/appwindow.slint
+)
+
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
