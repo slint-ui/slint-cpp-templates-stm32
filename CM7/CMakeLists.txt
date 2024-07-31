@@ -35,7 +35,7 @@ include("../gcc-arm-none-eabi.cmake")
 # Set the project name
 set(CMAKE_PROJECT_NAME slint-cpp-template-stm32h747i-disco_CM7)
 project(${CMAKE_PROJECT_NAME})
-)
+
 set(SLINT_STM32_BSP_NAME stm32h747i_discovery)
 
 include(FetchContent)
