@@ -1,6 +1,7 @@
 
 #include <main.h>
 #include <slint-stm.h>
+#include <stdio.h>
 #include <stm32h735g_discovery.h>
 #include <stm32h735g_discovery_lcd.h>
 #include <stm32h735g_discovery_ts.h>
@@ -8,6 +9,18 @@
 #include "appwindow.h"
 
 extern "C" int appmain(void) {
+  COM_InitTypeDef comlog;
+
+  comlog.BaudRate = 115200;
+  comlog.WordLength = COM_WORDLENGTH_8B;
+  comlog.StopBits = COM_STOPBITS_1;
+  comlog.Parity = COM_PARITY_NONE;
+  comlog.HwFlowCtl = COM_HWCONTROL_NONE;
+
+  BSP_COM_Init(COM1, &comlog);
+
+  printf("Hello World\n");
+
   if (BSP_LCD_InitEx(0, LCD_ORIENTATION_LANDSCAPE, LCD_PIXEL_FORMAT_RGB565,
                      LCD_DEFAULT_WIDTH, LCD_DEFAULT_HEIGHT) != 0) {
     Error_Handler();

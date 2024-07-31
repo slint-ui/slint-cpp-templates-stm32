@@ -28,8 +28,8 @@
 #include "stm32h7xx_hal.h"
 
 /* COM define */
-#define USE_COM_LOG                         0U
-#define USE_BSP_COM_FEATURE                 0U
+#define USE_COM_LOG                         1U
+#define USE_BSP_COM_FEATURE                 1U
 
 /* I2C BUS timing define */
 #define I2C_VALID_TIMING_NBR                128U
