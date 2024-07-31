@@ -81,6 +81,9 @@ int main(void)
   /* Enable I-Cache---------------------------------------------------------*/
   SCB_EnableICache();
 
+  /* Enable D-Cache---------------------------------------------------------*/
+  SCB_EnableDCache();
+
 /* USER CODE BEGIN Boot_Mode_Sequence_1 */
   /* Wait until CPU2 boots and enters in stop mode or timeout*/
   /*
