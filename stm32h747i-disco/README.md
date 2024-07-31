@@ -24,10 +24,11 @@ In order to use this template and build a C++ application, you need to install a
 
 1. Clone or download this repository
     ```
-    git clone https://github.com/slint-ui/slint-cpp-template-stm32h747i-disco my-project
+    git clone https://github.com/slint-ui/slint-cpp-templates-stm32 my-project
     cd my-project
+    cd stm32h747i-disco
     ```
-2. Open with VS code
+2. Open the stm32h747i-disco folder with VS code
    ```
    code .
    ```
