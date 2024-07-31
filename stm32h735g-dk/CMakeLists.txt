@@ -28,7 +28,7 @@ include("cmake/gcc-arm-none-eabi.cmake")
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 # Enable CMake support for ASM and C languages
-enable_language(C ASM)
+enable_language(C CXX ASM)
 
 # Core project settings
 project(${CMAKE_PROJECT_NAME})
@@ -56,6 +56,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ./Drivers/BSP/Components/ft5336/ft5336.c
     ./Drivers/BSP/Components/ft5336/ft5336_reg.c
     ./Drivers/BSP/Components/s70kl1281/s70kl1281.c
+
+    ./Core/Src/appmain.cpp
 )
 
 # Add include paths
