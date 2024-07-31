@@ -7,4 +7,4 @@ Each sub-directory corresponds to one supported board.
 | Project                                          | STM32 Board                                                                      |
 |--------------------------------------------------|----------------------------------------------------------------------------------|
 | [stm32h747i-disco](./stm32h747i-disco/README.md) | [STM32H747I-DISCO](https://www.st.com/en/evaluation-tools/stm32h747i-disco.html): Dual-core Arm M7/M4 MCU with 4” touch LCD display module |
-
+| [stm32h735g-dk](./stm32h735g-dk/README.md) | [STM32H735G-DK](https://www.st.com/en/evaluation-tools/stm32h735g-dk.html): Arm M7 MCU with 4” touch LCD display module |
