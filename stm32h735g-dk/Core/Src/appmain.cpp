@@ -1,5 +1,6 @@
 
 #include <main.h>
+#include <slint-stm.h>
 #include <stm32h735g_discovery.h>
 #include <stm32h735g_discovery_lcd.h>
 #include <stm32h735g_discovery_ts.h>
@@ -10,9 +11,6 @@ extern "C" int appmain(void) {
     Error_Handler();
   }
 
-  uint32_t lcd_width, lcd_height;
-  BSP_LCD_GetXSize(0, &lcd_width);
-  BSP_LCD_GetYSize(0, &lcd_height);
   BSP_LCD_DisplayOn(0);
   BSP_LCD_SetActiveLayer(0, 0);
 
@@ -25,6 +23,8 @@ extern "C" int appmain(void) {
   if (BSP_TS_Init(0, &hTS) != 0) {
     Error_Handler();
   }
+
+  slint_stm_init(SlintPlatformConfiguration());
 
   return 0;
 }

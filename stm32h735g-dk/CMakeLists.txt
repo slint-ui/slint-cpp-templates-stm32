@@ -34,6 +34,17 @@ enable_language(C CXX ASM)
 project(${CMAKE_PROJECT_NAME})
 message("Build type: " ${CMAKE_BUILD_TYPE})
 
+set(SLINT_STM32_BSP_NAME stm32h735g_discovery)
+
+include(FetchContent)
+FetchContent_Declare(
+    Slint
+    GIT_REPOSITORY https://github.com/slint-ui/slint
+    GIT_TAG feature/stm32-cpp
+    SOURCE_SUBDIR api/cpp/stm32
+)
+FetchContent_MakeAvailable(Slint)
+
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
 
@@ -75,6 +86,6 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
-
+    SlintSTM32
     # Add user defined libraries
 )
