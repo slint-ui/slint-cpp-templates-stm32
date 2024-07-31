@@ -48,11 +48,21 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
+    ./Drivers/BSP/STM32H735G-DK/stm32h735g_discovery.c
+    ./Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_lcd.c
+    ./Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.c
+    ./Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ospi.c
+    ./Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_bus.c
+    ./Drivers/BSP/Components/ft5336/ft5336.c
+    ./Drivers/BSP/Components/ft5336/ft5336_reg.c
+    ./Drivers/BSP/Components/s70kl1281/s70kl1281.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+    ./Drivers/BSP/STM32H735G-DK
+    ./Drivers/BSP/Components/Common
 )
 
 # Add project symbols (macros)

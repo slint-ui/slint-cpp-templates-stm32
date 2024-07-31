@@ -41,10 +41,6 @@
 
 /* Private variables ---------------------------------------------------------*/
 
-DMA2D_HandleTypeDef hdma2d;
-
-LTDC_HandleTypeDef hltdc;
-
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -54,8 +50,6 @@ void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MPU_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_DMA2D_Init(void);
-static void MX_LTDC_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -108,8 +102,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA2D_Init();
-  MX_LTDC_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -210,97 +202,6 @@ void PeriphCommonClock_Config(void)
 }
 
 /**
-  * @brief DMA2D Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_DMA2D_Init(void)
-{
-
-  /* USER CODE BEGIN DMA2D_Init 0 */
-
-  /* USER CODE END DMA2D_Init 0 */
-
-  /* USER CODE BEGIN DMA2D_Init 1 */
-
-  /* USER CODE END DMA2D_Init 1 */
-  hdma2d.Instance = DMA2D;
-  hdma2d.Init.Mode = DMA2D_R2M;
-  hdma2d.Init.ColorMode = DMA2D_OUTPUT_RGB888;
-  hdma2d.Init.OutputOffset = 0;
-  if (HAL_DMA2D_Init(&hdma2d) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN DMA2D_Init 2 */
-
-  /* USER CODE END DMA2D_Init 2 */
-
-}
-
-/**
-  * @brief LTDC Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_LTDC_Init(void)
-{
-
-  /* USER CODE BEGIN LTDC_Init 0 */
-
-  /* USER CODE END LTDC_Init 0 */
-
-  LTDC_LayerCfgTypeDef pLayerCfg = {0};
-
-  /* USER CODE BEGIN LTDC_Init 1 */
-
-  /* USER CODE END LTDC_Init 1 */
-  hltdc.Instance = LTDC;
-  hltdc.Init.HSPolarity = LTDC_HSPOLARITY_AL;
-  hltdc.Init.VSPolarity = LTDC_VSPOLARITY_AL;
-  hltdc.Init.DEPolarity = LTDC_DEPOLARITY_AL;
-  hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
-  hltdc.Init.HorizontalSync = 40;
-  hltdc.Init.VerticalSync = 9;
-  hltdc.Init.AccumulatedHBP = 53;
-  hltdc.Init.AccumulatedVBP = 11;
-  hltdc.Init.AccumulatedActiveW = 533;
-  hltdc.Init.AccumulatedActiveH = 283;
-  hltdc.Init.TotalWidth = 565;
-  hltdc.Init.TotalHeigh = 285;
-  hltdc.Init.Backcolor.Blue = 0;
-  hltdc.Init.Backcolor.Green = 0;
-  hltdc.Init.Backcolor.Red = 0;
-  if (HAL_LTDC_Init(&hltdc) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  pLayerCfg.WindowX0 = 0;
-  pLayerCfg.WindowX1 = 480;
-  pLayerCfg.WindowY0 = 0;
-  pLayerCfg.WindowY1 = 272;
-  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB888;
-  pLayerCfg.Alpha = 255;
-  pLayerCfg.Alpha0 = 0;
-  pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
-  pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
-  pLayerCfg.FBStartAdress = 0x70000000;
-  pLayerCfg.ImageWidth = 480;
-  pLayerCfg.ImageHeight = 272;
-  pLayerCfg.Backcolor.Blue = 0;
-  pLayerCfg.Backcolor.Green = 0;
-  pLayerCfg.Backcolor.Red = 0;
-  if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg, 0) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN LTDC_Init 2 */
-
-  /* USER CODE END LTDC_Init 2 */
-
-}
-
-/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -315,8 +216,8 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOG_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOF_CLK_ENABLE();
