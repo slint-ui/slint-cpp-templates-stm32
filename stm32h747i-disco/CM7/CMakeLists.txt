@@ -38,6 +38,8 @@ project(${CMAKE_PROJECT_NAME})
 
 set(SLINT_STM32_BSP_NAME stm32h747i_discovery)
 
+set(SLINT_STYLE "fluent-light")
+
 include(FetchContent)
 FetchContent_Declare(
     Slint
