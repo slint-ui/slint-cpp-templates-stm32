@@ -39,6 +39,7 @@ project(${CMAKE_PROJECT_NAME})
 set(SLINT_STM32_BSP_NAME stm32h747i_discovery)
 
 set(SLINT_STYLE "fluent-light")
+set(SLINT_SCALE_FACTOR_OVERRIDE 2)
 
 include(FetchContent)
 FetchContent_Declare(
