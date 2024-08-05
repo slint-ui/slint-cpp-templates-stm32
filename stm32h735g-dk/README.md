@@ -33,7 +33,8 @@ In order to use this template and build a C++ application, you need to install a
    ```
    code .
    ```
-3. Build, Flash to Device, and debug by hitting `F5` or running the `CMake: Debug` command from the command palette.
+3. Configure the project either via "CMake: Select Configure Preset" from the command palette or the CMake extension panel.
+4. Build, Flash to Device, and debug by hitting `F5` or running the `CMake: Debug` command from the command palette.
 
 ## Next Steps
 
