@@ -37,7 +37,6 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 set(SLINT_STM32_BSP_NAME stm32h735g_discovery)
 
 set(SLINT_STYLE "fluent-light")
-set(SLINT_SCALE_FACTOR_OVERRIDE 1)
 
 include(FetchContent)
 FetchContent_Declare(

@@ -39,7 +39,6 @@ project(${CMAKE_PROJECT_NAME})
 set(SLINT_STM32_BSP_NAME stm32h747i_discovery)
 
 set(SLINT_STYLE "fluent-light")
-set(SLINT_SCALE_FACTOR_OVERRIDE 2)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -95,6 +94,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 )
 
 slint_target_sources(${CMAKE_PROJECT_NAME} ./Core/Src/ui/appwindow.slint)
+set_property(TARGET ${CMAKE_PROJECT_NAME} APPEND PROPERTY SLINT_SCALE_FACTOR 2)
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
