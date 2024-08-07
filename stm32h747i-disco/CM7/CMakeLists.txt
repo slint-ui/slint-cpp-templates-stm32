@@ -71,6 +71,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
     ../Drivers/BSP/STM32H747I-DISCO/
     ../Drivers/BSP/Components/Common
+    ../Drivers/BSP/Components/mt25tl01g
     ../Drivers/STM32H7xx_HAL_Driver/Inc
 )
 
@@ -82,6 +83,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ../Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c
     ../Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_sdram.c
     ../Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_bus.c
+    ../Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c
     ../Drivers/BSP/Components/nt35510/nt35510.c
     ../Drivers/BSP/Components/nt35510/nt35510_reg.c
     ../Drivers/BSP/Components/otm8009a/otm8009a.c
@@ -89,6 +91,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ../Drivers/BSP/Components/ft6x06/ft6x06.c
     ../Drivers/BSP/Components/ft6x06/ft6x06_reg.c
     ../Drivers/BSP/Components/is42s32800j/is42s32800j.c
+    ../Drivers/BSP/Components/mt25tl01g/mt25tl01g.c
 
     ./Core/Src/appmain.cpp
 )

@@ -7,6 +7,7 @@
 #include <stm32h747i_discovery.h>
 #include <stm32h747i_discovery_lcd.h>
 #include <stm32h747i_discovery_ts.h>
+#include <stm32h747i_discovery_qspi.h>
 
 #include "appwindow.h"
 
@@ -27,6 +28,19 @@ extern "C" int appmain() {
                      LCD_DEFAULT_WIDTH, LCD_DEFAULT_HEIGHT) != 0) {
     Error_Handler();
   }
+
+  BSP_QSPI_Init_t init;
+  init.InterfaceMode = MT25TL01G_QPI_MODE;
+  init.TransferRate = MT25TL01G_DTR_TRANSFER ;
+  init.DualFlashMode = MT25TL01G_DUALFLASH_ENABLE;
+
+  if (BSP_QSPI_Init(0, &init) != 0) {
+    Error_Handler();
+  }
+
+  if (BSP_QSPI_EnableMemoryMappedMode(0) != 0) {
+    Error_Handler();
+  }  
 
   uint32_t lcd_width, lcd_height;
   BSP_LCD_GetXSize(0, &lcd_width);

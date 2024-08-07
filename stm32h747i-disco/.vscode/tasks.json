@@ -16,6 +16,8 @@
             "args": [
                 "--connect",
                 "port=swd",
+                "--extload",
+                "${config:STM32VSCodeExtension.cubeCLT.path}/STM32CubeProgrammer/bin/ExternalLoader/MT25TL01G_STM32H747I-DISCO.stldr",
                 "--download",
                 "${command:STM32VSCodeExtension.dualCoreCM7Target}",
                 "-hardRst",
@@ -42,6 +44,8 @@
             "args": [
                 "--connect",
                 "port=swd",
+                "--extload",
+                "${config:STM32VSCodeExtension.cubeCLT.path}/STM32CubeProgrammer/bin/ExternalLoader/MT25TL01G_STM32H747I-DISCO.stldr",
                 "--download",
                 "${command:STM32VSCodeExtension.dualCoreCM4Target}",
                 "-hardRst",

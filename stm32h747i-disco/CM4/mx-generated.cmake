@@ -47,7 +47,6 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c
     ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c
     ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cec.c
-    ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c
     ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc.c
     ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc_ex.c
     ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai.c

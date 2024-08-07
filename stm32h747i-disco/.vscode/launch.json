@@ -25,7 +25,9 @@
             "serverArgs": [
                 "-m","0",
                 "-t", "-s", 
-                "-k"
+                "-k",
+                "--extload",
+                "${config:STM32VSCodeExtension.cubeCLT.path}/STM32CubeProgrammer/bin/ExternalLoader/MT25TL01G_STM32H747I-DISCO.stldr",
             ],
             "preLaunchTask": "Build + Flash CM7"
         },

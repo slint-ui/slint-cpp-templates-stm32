@@ -71,8 +71,6 @@ ETH_HandleTypeDef heth;
 
 CEC_HandleTypeDef hcec;
 
-QSPI_HandleTypeDef hqspi;
-
 RTC_HandleTypeDef hrtc;
 
 SAI_HandleTypeDef hsai_BlockA1;
@@ -104,7 +102,6 @@ static void MX_ADC1_Init(void);
 static void MX_ADC3_Init(void);
 static void MX_ETH_Init(void);
 static void MX_HDMI_CEC_Init(void);
-static void MX_QUADSPI_Init(void);
 static void MX_RTC_Init(void);
 static void MX_SAI1_Init(void);
 static void MX_SDMMC1_SD_Init(void);
@@ -169,7 +166,6 @@ int main(void)
   MX_ADC3_Init();
   MX_ETH_Init();
   MX_HDMI_CEC_Init();
-  MX_QUADSPI_Init();
   MX_RTC_Init();
   MX_SAI1_Init();
   MX_SDMMC1_SD_Init();
@@ -440,40 +436,6 @@ static void MX_HDMI_CEC_Init(void)
   /* USER CODE BEGIN HDMI_CEC_Init 2 */
 
   /* USER CODE END HDMI_CEC_Init 2 */
-
-}
-
-/**
-  * @brief QUADSPI Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_QUADSPI_Init(void)
-{
-
-  /* USER CODE BEGIN QUADSPI_Init 0 */
-
-  /* USER CODE END QUADSPI_Init 0 */
-
-  /* USER CODE BEGIN QUADSPI_Init 1 */
-
-  /* USER CODE END QUADSPI_Init 1 */
-  /* QUADSPI parameter configuration*/
-  hqspi.Instance = QUADSPI;
-  hqspi.Init.ClockPrescaler = 255;
-  hqspi.Init.FifoThreshold = 1;
-  hqspi.Init.SampleShifting = QSPI_SAMPLE_SHIFTING_NONE;
-  hqspi.Init.FlashSize = 1;
-  hqspi.Init.ChipSelectHighTime = QSPI_CS_HIGH_TIME_1_CYCLE;
-  hqspi.Init.ClockMode = QSPI_CLOCK_MODE_0;
-  hqspi.Init.DualFlash = QSPI_DUALFLASH_ENABLE;
-  if (HAL_QSPI_Init(&hqspi) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN QUADSPI_Init 2 */
-
-  /* USER CODE END QUADSPI_Init 2 */
 
 }
 
@@ -1024,8 +986,8 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_GPIOG_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOG_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
