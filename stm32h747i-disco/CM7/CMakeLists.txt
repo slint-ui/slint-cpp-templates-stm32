@@ -38,7 +38,7 @@ project(${CMAKE_PROJECT_NAME})
 
 set(SLINT_STYLE "fluent-light")
 
-function(try_download_prebuilt_slint_binary slint_version target_arch)
+function(try_download_prebuilt_slint_binary slint_version rust_target)
     cmake_parse_arguments(option "" "GITHUB_RELEASE" "" ${ARGN})
 
     if (DEFINED option_GITHUB_RELEASE)
@@ -47,7 +47,7 @@ function(try_download_prebuilt_slint_binary slint_version target_arch)
         set(github_release "${slint_version}")
     endif()
 
-    set(prebuilt_archive_filename "Slint-cpp-${slint_version}-${CMAKE_HOST_SYSTEM_NAME}-${CMAKE_HOST_SYSTEM_PROCESSOR}-${target_arch}.tar.gz")
+    set(prebuilt_archive_filename "Slint-cpp-${slint_version}-${CMAKE_HOST_SYSTEM_NAME}-${CMAKE_HOST_SYSTEM_PROCESSOR}-${rust_target}.tar.gz")
     set(download_target_path "${CMAKE_BINARY_DIR}/slint-prebuilt/")
     set(download_url "https://github.com/slint-ui/slint/releases/download/${github_release}/${prebuilt_archive_filename}")
 
@@ -66,13 +66,13 @@ function(try_download_prebuilt_slint_binary slint_version target_arch)
     find_package(Slint)
 endfunction()
 
-function(build_slint_from_source slint_version target_arch)
+function(build_slint_from_source slint_version rust_target)
     set(SLINT_FEATURE_FREESTANDING ON)
     set(SLINT_FEATURE_RENDERER_SOFTWARE ON)
     set(DEFAULT_SLINT_EMBED_RESOURCES "embed-for-software-renderer" CACHE STRING "")
     set(CMAKE_BUILD_TYPE Release)
     set(BUILD_SHARED_LIBS OFF)
-    set(Rust_CARGO_TARGET ${target_arch})
+    set(Rust_CARGO_TARGET ${rust_target})
 
     include(FetchContent)
     FetchContent_Declare(
@@ -95,17 +95,17 @@ set(DEFAULT_SLINT_EMBED_RESOURCES embed-for-software-renderer)
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
 
-# Include mx-generated 
+# Include mx-generated
 include("mx-generated.cmake")
 
 # Enable CMake support for ASM and C languages
 enable_language(C CXX ASM)
 
 # In order to use CMake for cross-compiling
-set(CMAKE_CXX_COMPILER_FORCED "true") 
+set(CMAKE_CXX_COMPILER_FORCED "true")
 
 # Add project symbols (macros)
-target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE 
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined symbols
     SLINT_STM32_BSP_NAME=stm32h747i_discovery
 )
