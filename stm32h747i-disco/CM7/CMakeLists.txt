@@ -48,7 +48,7 @@ function(try_download_prebuilt_slint_binary slint_version rust_target)
     endif()
 
     if(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
-        set(package_system_name "${package_system_name}-win64-MSVC")
+        set(package_system_name "win64-MSVC")
     else()
         set(package_system_name "${CMAKE_HOST_SYSTEM_NAME}-${CMAKE_HOST_SYSTEM_PROCESSOR}")
     endif()
