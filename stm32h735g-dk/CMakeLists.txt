@@ -34,18 +34,63 @@ enable_language(C CXX ASM)
 project(${CMAKE_PROJECT_NAME})
 message("Build type: " ${CMAKE_BUILD_TYPE})
 
-set(SLINT_STM32_BSP_NAME stm32h735g_discovery)
-
 set(SLINT_STYLE "fluent-light")
 
-include(FetchContent)
-FetchContent_Declare(
-    Slint
-    GIT_REPOSITORY https://github.com/slint-ui/slint
-    GIT_TAG feature/stm32-cpp
-    SOURCE_SUBDIR api/cpp/stm32
-)
-FetchContent_MakeAvailable(Slint)
+function(try_download_prebuilt_slint_binary slint_version)
+    cmake_parse_arguments(option "" "GITHUB_RELEASE" "" ${ARGN})
+
+    if (DEFINED option_GITHUB_RELEASE)
+        set(github_release "${option_GITHUB_RELEASE}")
+    else()
+        set(github_release "${slint_version}")
+    endif()
+
+    set(slint_prebuilt_base_url "https://github.com/slint-ui/slint/releases/download/${github_release}")
+    set(prebuilt_archive_base "Slint-cpp-${slint_version}-${CMAKE_HOST_SYSTEM_NAME}-${CMAKE_HOST_SYSTEM_PROCESSOR}-thumbv7em-none-eabihf")
+    set(prebuilt_archive_filename "${prebuilt_archive_base}.tar.gz")
+    set(download_target_path "${CMAKE_BINARY_DIR}/slint-prebuilt/")
+    set(download_url "${slint_prebuilt_base_url}/${prebuilt_archive_filename}")
+
+    file(MAKE_DIRECTORY "${download_target_path}")
+    message(STATUS "Downloading pre-built Slint binary ${download_url} to ${download_target_path}/${prebuilt_archive_filename}")
+    file(DOWNLOAD "${download_url}" "${download_target_path}/${prebuilt_archive_filename}" STATUS download_status)
+    list(GET download_status 0 download_code)
+    if (NOT download_code EQUAL 0)
+        list(GET download_status 1 download_message)
+        message(STATUS "Download of Slint binary package failed: ${download_message}")
+        return()
+    endif()
+
+    file(ARCHIVE_EXTRACT INPUT "${download_target_path}/${prebuilt_archive_filename}" DESTINATION "${download_target_path}")
+    list(PREPEND CMAKE_PREFIX_PATH "${download_target_path}")
+    find_package(Slint)
+endfunction()
+
+function(build_slint_from_source slint_version)
+    set(SLINT_FEATURE_FREESTANDING ON)
+    set(SLINT_FEATURE_RENDERER_SOFTWARE ON)
+    set(DEFAULT_SLINT_EMBED_RESOURCES "embed-for-software-renderer" CACHE STRING "")
+    set(CMAKE_BUILD_TYPE Release)
+    set(BUILD_SHARED_LIBS OFF)
+    set(Rust_CARGO_TARGET "thumbv7em-none-eabihf")
+
+    include(FetchContent)
+    FetchContent_Declare(
+        Slint
+        GIT_REPOSITORY https://github.com/slint-ui/slint
+        GIT_REPOSITORY file:///Users/simon/src/slint
+        GIT_TAG master
+        SOURCE_SUBDIR api/cpp
+    )
+    FetchContent_MakeAvailable(Slint)
+endfunction()
+
+try_download_prebuilt_slint_binary(1.8.0 GITHUB_RELEASE "nightly")
+if (NOT TARGET Slint::Slint)
+   build_slint_from_source(1.8.0)
+endif()
+
+set(DEFAULT_SLINT_EMBED_RESOURCES embed-for-software-renderer)
 
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
@@ -83,6 +128,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add project symbols (macros)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined symbols
+    SLINT_STM32_BSP_NAME=stm32h735g_discovery
 )
 
 slint_target_sources(${CMAKE_PROJECT_NAME}
@@ -92,6 +138,6 @@ slint_target_sources(${CMAKE_PROJECT_NAME}
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
-    SlintSTM32
+    Slint::Slint
     # Add user defined libraries
 )

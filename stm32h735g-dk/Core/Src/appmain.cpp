@@ -1,6 +1,6 @@
 
 #include <main.h>
-#include <slint-stm.h>
+#include <slint-stm32.h>
 #include <stdio.h>
 #include <stm32h735g_discovery.h>
 #include <stm32h735g_discovery_lcd.h>
@@ -39,7 +39,7 @@ extern "C" int appmain(void) {
     Error_Handler();
   }
 
-  slint_stm_init(SlintPlatformConfiguration());
+  slint_stm32_init(SlintPlatformConfiguration());
 
   auto app_window = AppWindow::create();
 
