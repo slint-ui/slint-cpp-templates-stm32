@@ -45,7 +45,7 @@ function(try_download_prebuilt_slint_binary slint_version rust_target)
         set(github_release "${slint_version}")
     endif()
 
-    if(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
+    if(CMAKE_HOST_WIN32)
         set(package_system_name "win32-MinGW")
     else()
         set(package_system_name "${CMAKE_HOST_SYSTEM_NAME}-${CMAKE_HOST_SYSTEM_PROCESSOR}")
