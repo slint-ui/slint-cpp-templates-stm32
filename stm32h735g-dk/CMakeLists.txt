@@ -53,7 +53,7 @@ function(try_download_prebuilt_slint_binary slint_version rust_target)
         endif()
         set(package_system_name "${package_system_name}-MSVC")
     else()
-        set(package_system_name "${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")
+        set(package_system_name "${CMAKE_HOST_SYSTEM_NAME}-${CMAKE_HOST_SYSTEM_PROCESSOR}")
     endif()
 
     set(prebuilt_archive_filename "Slint-cpp-${slint_version}-${package_system_name}-${rust_target}.tar.gz")
