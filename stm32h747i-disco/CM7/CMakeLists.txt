@@ -66,7 +66,7 @@ function(try_download_prebuilt_slint_binary slint_version rust_target)
     find_package(Slint)
 endfunction()
 
-function(build_slint_from_source slint_version rust_target)
+function(build_slint_from_source git_tag rust_target)
     set(SLINT_FEATURE_FREESTANDING ON)
     set(SLINT_FEATURE_RENDERER_SOFTWARE ON)
     set(DEFAULT_SLINT_EMBED_RESOURCES "embed-for-software-renderer" CACHE STRING "")
@@ -78,8 +78,7 @@ function(build_slint_from_source slint_version rust_target)
     FetchContent_Declare(
         Slint
         GIT_REPOSITORY https://github.com/slint-ui/slint
-        GIT_REPOSITORY file:///Users/simon/src/slint
-        GIT_TAG master
+        GIT_TAG ${git_tag}
         SOURCE_SUBDIR api/cpp
     )
     FetchContent_MakeAvailable(Slint)
@@ -87,7 +86,7 @@ endfunction()
 
 try_download_prebuilt_slint_binary(1.8.0 thumbv7em-none-eabihf GITHUB_RELEASE "nightly")
 if (NOT TARGET Slint::Slint)
-   build_slint_from_source(1.8.0 thumbv7em-none-eabihf)
+   build_slint_from_source(master thumbv7em-none-eabihf)
 endif()
 
 set(DEFAULT_SLINT_EMBED_RESOURCES embed-for-software-renderer)
