@@ -39,7 +39,7 @@ project(${CMAKE_PROJECT_NAME})
 set(SLINT_STYLE "fluent-light")
 
 function(try_download_prebuilt_slint_binary slint_version target_arch)
-    cmake_parse_arguments(option "" "TARGET_ARCH;GITHUB_RELEASE" "" ${ARGN})
+    cmake_parse_arguments(option "" "GITHUB_RELEASE" "" ${ARGN})
 
     if (DEFINED option_GITHUB_RELEASE)
         set(github_release "${option_GITHUB_RELEASE}")
