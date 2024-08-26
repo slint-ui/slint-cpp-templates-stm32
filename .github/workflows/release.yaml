@@ -4,8 +4,6 @@
 name: Release
 
 on:
-    push:
-        branches: [main, "feature/*"]
     workflow_dispatch:
 
 jobs:
