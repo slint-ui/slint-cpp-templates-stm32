@@ -41,11 +41,11 @@ jobs:
           with:
             release: '13.3.Rel1'
         - name: CMake configure
-          working-directory: ${{ matrix.board }}
+          working-directory: slint-cpp-template-${{ matrix.board }}
           run: |
               cmake --preset Debug
         - name: CMake build
-          working-directory: ${{ matrix.board }}
+          working-directory: slint-cpp-template-${{ matrix.board }}
           run: |
               cmake --build --preset Debug
 
