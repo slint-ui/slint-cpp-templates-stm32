@@ -1,0 +1,53 @@
+# Copyright © SixtyFPS GmbH <info@slint.dev>
+# SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0
+
+name: Release
+
+on:
+    push:
+        branches: [main, "feature/*"]
+    workflow_dispatch:
+
+jobs:
+    build_packages:
+        strategy:
+            matrix:
+                board: [stm32h735g-dk, stm32h747i-disco]
+
+        runs-on: ubuntu-22.04
+        steps:
+            - uses: actions/checkout@v4          
+              with:
+                sparse-checkout: ${{ matrix.board }}
+            - name: "Upload extension artifact"
+              uses: actions/upload-artifact@v4
+              with:
+                  name: slint-cpp-template-${{ matrix.board }}
+                  path: ${{ matrix.board }}
+
+    test_packages:
+        strategy:
+            matrix:
+                os: [ubuntu-20.04, macOS-12, windows-2022]
+                board: [stm32h735g-dk, stm32h747i-disco]
+
+        needs: [build_packages]
+        runs-on: ${{ matrix.os }}
+        steps:
+        - uses: actions/download-artifact@v4
+          with:
+            name: slint-cpp-template-${{ matrix.board }}
+        - uses: seanmiddleditch/gha-setup-ninja@v5
+        - name: Install GNU Arm Embedded Toolchain
+          uses: carlosperate/arm-none-eabi-gcc-action@v1
+          with:
+            release: '13.3.Rel1'
+        - name: CMake configure
+          working-directory: ${{ matrix.board }}
+          run: |
+              cmake --preset Debug
+        - name: CMake build
+          working-directory: ${{ matrix.board }}
+          run: |
+              cmake --build --preset Debug
+
