@@ -46,10 +46,6 @@ jobs:
           uses: carlosperate/arm-none-eabi-gcc-action@v1
           with:
             release: '13.3.Rel1'
-        - name: debug
-          run: |
-              ls -l
-              ls -l slint-cpp-template-${{ matrix.board }}
         - name: CMake configure
           working-directory: slint-cpp-template-${{ matrix.board }}
           run: |
