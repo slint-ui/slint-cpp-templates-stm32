@@ -19,7 +19,7 @@ jobs:
                 sparse-checkout: ${{ matrix.board }}
             - name: build source package
               run: |
-                  git archive -o slint-cpp-template-${{ matrix.board }}.zip --prefix=slint-cpp-template-${{ matrix.board }} HEAD ${{ matrix.board }}
+                  git archive -o slint-cpp-template-${{ matrix.board }}.zip HEAD ${{ matrix.board }}
             - name: "Upload extension artifact"
               uses: actions/upload-artifact@v4
               with:
