@@ -42,6 +42,7 @@ list(PREPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../cmake")
 
 # Remove this when 1.8.0 is out
 set(SLINT_GITHUB_RELEASE "nightly" CACHE STRING "")
+set(SLINT_TARGET_ARCHITECTURE thumbv7em-none-eabihf)
 find_package(Slint 1.8.0)
 
 set(DEFAULT_SLINT_EMBED_RESOURCES embed-for-software-renderer)
