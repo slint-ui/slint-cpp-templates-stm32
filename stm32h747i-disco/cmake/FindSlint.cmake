@@ -1,53 +1,28 @@
-function(try_download_prebuilt_slint_binary slint_version rust_target)
+# FindSlint
+# ---------
+#
+# This modules attempts to locate an installation of Slint, as follows:
+#
+# 1. First `find_package(Slint ... CONFIG ...)` is called, to locate any packages in the `CMAKE_PREFIX_PATH`.
+# 2. If that failed and if `find_package` was called with a `VERSION`, then this module will attempt to download
+#    a pre-compiled binary package for the specified Slint release, extract it into `${CMAKE_BINARY_DIR}/slint-prebuilt`,
+#    and make it available.
+#
+# The following variables may be set to affect the behaviour:
+#
+# `SLINT_TARGET_ARCHITECTURE`: Set this to the desired target architecture. The format of this string is matched against
+# the `Slint-cpp-*-$SLINT_TARGET_ARCHITECTURE.tar.gz` pre-built assets on the GitHub releases. For example, if you're targeting
+# STM32 ARM architectures, you'd set this to `thumbv7em-none-eabihf`. If not set, this module will attempt to detect if compilation
+# is happening in an ESP-IDF cross-compilation environment and detect the architecture accordingly, otherwise
+# `${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}` is used.
+#
+# `SLINT_USE_NIGHTLY_VERSION`: When `find_package(Slint)` is called without a version and no package was found in the system, then
+# the version specified in this variable will be used to download from the nightly snapshot of Slint instead.
 
-    if (DEFINED CACHE{SLINT_GITHUB_RELEASE})
-        set(github_release $CACHE{SLINT_GITHUB_RELEASE})
-    else()
-        set(github_release slint_version)
-    endif()
-
-    set(prebuilt_archive_filename "Slint-cpp-${slint_version}-${rust_target}.tar.gz")
-    set(download_target_path "${CMAKE_BINARY_DIR}/slint-prebuilt/")
-    set(download_url "https://github.com/slint-ui/slint/releases/download/${github_release}/${prebuilt_archive_filename}")
-
-    file(MAKE_DIRECTORY "${download_target_path}")
-    message(STATUS "Downloading pre-built Slint binary ${download_url}")
-    file(DOWNLOAD "${download_url}" "${download_target_path}/${prebuilt_archive_filename}" STATUS download_status)
-    list(GET download_status 0 download_code)
-    if (NOT download_code EQUAL 0)
-        list(GET download_status 1 download_message)
-        message(STATUS "Download of Slint binary package failed: ${download_message}")
-        return()
-    endif()
-
-    file(ARCHIVE_EXTRACT INPUT "${download_target_path}/${prebuilt_archive_filename}" DESTINATION "${download_target_path}")
-    list(PREPEND CMAKE_PREFIX_PATH "${download_target_path}")
-    find_package(Slint CONFIG)
-endfunction()
-
-function(build_slint_from_source slint_version rust_target)
-    set(SLINT_FEATURE_FREESTANDING ON)
-    set(SLINT_FEATURE_RENDERER_SOFTWARE ON)
-    set(DEFAULT_SLINT_EMBED_RESOURCES "embed-for-software-renderer" CACHE STRING "")
-    set(CMAKE_BUILD_TYPE Release)
-    set(BUILD_SHARED_LIBS OFF)
-    set(Rust_CARGO_TARGET ${rust_target})
-
-    if ($CACHE{SLINT_GITHUB_RELEASE} STREQUAL "nightly")
-        set(git_tag "master")
-    else()
-        set(git_tag "v${slint_version}")
-    endif()
-
-    include(FetchContent)
-    FetchContent_Declare(
-        Slint
-        GIT_REPOSITORY https://github.com/slint-ui/slint
-        GIT_TAG ${git_tag}
-        SOURCE_SUBDIR api/cpp
-    )
-    FetchContent_MakeAvailable(Slint)
-endfunction()
+find_package(Slint ${Slint_FIND_VERSION} QUIET CONFIG)
+if (TARGET Slint::Slint)
+    return()
+endif()
 
 if (NOT SLINT_TARGET_ARCHITECTURE)
     if(WIN32)
@@ -77,7 +52,33 @@ if (NOT SLINT_TARGET_ARCHITECTURE)
     endif()
 endif()
 
-try_download_prebuilt_slint_binary(${Slint_FIND_VERSION} ${SLINT_TARGET_ARCHITECTURE})
-if (NOT TARGET Slint::Slint)
-   build_slint_from_source(${Slint_FIND_VERSION} ${SLINT_TARGET_ARCHITECTURE})
+if (DEFINED Slint_FIND_VERSION)
+    set(slint_version "${Slint_FIND_VERSION}")
+    set(github_release "${slint_version}")
+else()
+    if (NOT DEFINED SLINT_USE_NIGHTLY_VERSION)
+        return()
+    endif()
+    set(slint_version "${SLINT_USE_NIGHTLY_VERSION}")
+    set(github_release "nightly")
+    # Set this to instruct the slint-compiler download to use the same release
+    set(SLINT_GITHUB_RELEASE "nightly" CACHE STRING "")
 endif()
+
+set(prebuilt_archive_filename "Slint-cpp-${slint_version}-${SLINT_TARGET_ARCHITECTURE}.tar.gz")
+set(download_target_path "${CMAKE_BINARY_DIR}/slint-prebuilt/")
+set(download_url "https://github.com/slint-ui/slint/releases/download/${github_release}/${prebuilt_archive_filename}")
+
+file(MAKE_DIRECTORY "${download_target_path}")
+message(STATUS "Downloading pre-built Slint binary ${download_url}")
+file(DOWNLOAD "${download_url}" "${download_target_path}/${prebuilt_archive_filename}" STATUS download_status)
+list(GET download_status 0 download_code)
+if (NOT download_code EQUAL 0)
+    list(GET download_status 1 download_message)
+    message(STATUS "Download of Slint binary package failed: ${download_message}")
+    return()
+endif()
+
+file(ARCHIVE_EXTRACT INPUT "${download_target_path}/${prebuilt_archive_filename}" DESTINATION "${download_target_path}")
+list(PREPEND CMAKE_PREFIX_PATH "${download_target_path}")
+find_package(Slint CONFIG)
