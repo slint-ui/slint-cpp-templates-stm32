@@ -6,7 +6,7 @@ function(try_download_prebuilt_slint_binary slint_version rust_target)
         set(github_release slint_version)
     endif()
 
-    set(prebuilt_archive_filename "Slint-cpp-${slint_version}-Linux-x86_64-${rust_target}.tar.gz")
+    set(prebuilt_archive_filename "Slint-cpp-${slint_version}-${rust_target}.tar.gz")
     set(download_target_path "${CMAKE_BINARY_DIR}/slint-prebuilt/")
     set(download_url "https://github.com/slint-ui/slint/releases/download/${github_release}/${prebuilt_archive_filename}")
 
