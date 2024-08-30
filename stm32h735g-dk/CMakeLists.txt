@@ -38,6 +38,7 @@ set(SLINT_STYLE "fluent-light")
 
 list(PREPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
+# Remove this when 1.8.0 is out
 set(SLINT_GITHUB_RELEASE "nightly" CACHE STRING "")
 find_package(Slint 1.8.0)
 
