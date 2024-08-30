@@ -14,8 +14,6 @@ In order to use this template and build a C++ application, you need to install a
 
   * **[cmake](https://cmake.org/download/)** (3.21 or newer)
   * **[STM32CubeCLT](https://www.st.com/en/development-tools/stm32cubeclt.html)**
-  * **[Rust](https://www.rust-lang.org/learn/get-started)**
-    * After installation, run `rustup target add thumbv7em-none-eabihf`
   * **[Visual Studio Code](https://code.visualstudio.com)**
   * **[Slint extension](https://marketplace.visualstudio.com/items?itemName=Slint.slint)**
   * **[STM32 VS Code Extension](https://marketplace.visualstudio.com/items?itemName=stmicroelectronics.stm32-vscode-extension)**
