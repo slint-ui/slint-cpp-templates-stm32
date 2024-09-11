@@ -16,8 +16,8 @@
 # is happening in an ESP-IDF cross-compilation environment and detect the architecture accordingly, otherwise
 # `${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}` is used.
 #
-# `SLINT_USE_NIGHTLY_VERSION`: When `find_package(Slint)` is called without a version and no package was found in the system, then
-# the version specified in this variable will be used to download from the nightly snapshot of Slint instead.
+# `SLINT_USE_NIGHTLY_VERSION`: When `find_package(Slint)` is called with a version, then this module will 
+# attempt to download a pre-compiled binary from the nightly snapshot of Slint.
 
 find_package(Slint ${Slint_FIND_VERSION} QUIET CONFIG)
 if (TARGET Slint::Slint)
