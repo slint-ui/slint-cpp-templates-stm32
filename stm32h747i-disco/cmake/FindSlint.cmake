@@ -52,14 +52,14 @@ if (NOT SLINT_TARGET_ARCHITECTURE)
     endif()
 endif()
 
-if (DEFINED Slint_FIND_VERSION)
-    set(slint_version "${Slint_FIND_VERSION}")
-    set(github_release "${slint_version}")
-else()
-    if (NOT DEFINED SLINT_USE_NIGHTLY_VERSION)
-        return()
-    endif()
-    set(slint_version "${SLINT_USE_NIGHTLY_VERSION}")
+if (NOT DEFINED Slint_FIND_VERSION)
+    return()
+endif()
+
+set(slint_version "${Slint_FIND_VERSION}")
+set(github_release "${slint_version}")
+
+if (SLINT_USE_NIGHTLY_VERSION)
     set(github_release "nightly")
     # Set this to instruct the slint-compiler download to use the same release
     set(SLINT_GITHUB_RELEASE "nightly" CACHE STRING "")
