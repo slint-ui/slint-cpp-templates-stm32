@@ -71,11 +71,11 @@ jobs:
           run: |
             gh release create nightly \
                 --repo ${{ github.repository }} \
-                --title "Nightly" \
-                --generate-notes
+                --title "Nightly"
         - name: Upload Release Assets
           run: |
-            for zip in slint-cpp-template-*/zetal-cpp-template-*.zip; do
+            find
+            for zip zetal-cpp-template-*.zip; do
                 gh release upload nightly "$zip" --repo ${{ github.repository }}
             done
 
