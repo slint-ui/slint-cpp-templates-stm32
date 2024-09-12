@@ -19,7 +19,7 @@ jobs:
                 sparse-checkout: ${{ matrix.board }}
             - name: build source package
               run: |
-                  mv ${{ matrix.board }} slint-cpp-template-${{ matrix.board }}                  
+                  mv ${{ matrix.board }} slint-cpp-template-${{ matrix.board }}
                   zip -r slint-cpp-template-${{ matrix.board }}.zip slint-cpp-template-${{ matrix.board }}/
             - name: "Upload extension artifact"
               uses: actions/upload-artifact@v4
@@ -55,4 +55,27 @@ jobs:
           working-directory: slint-cpp-template-${{ matrix.board }}
           run: |
               cmake --build --preset Debug
+
+
+
+    create_release:
+        needs: [test_packages]
+        runs-on: ubuntu-22.04
+        env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+        - uses: actions/checkout@v4
+        - name: Download all artifacts
+          uses: actions/download-artifact@v4
+        - name: Create GitHub Release
+          run: |
+            gh release create nightly \
+                --repo ${{ github.repository }} \
+                --title "Nightly" \
+                --generate-notes
+        - name: Upload Release Assets
+          run: |
+            for zip in slint-cpp-template-*/zetal-cpp-template-*.zip; do
+                gh release upload nightly "$zip" --repo ${{ github.repository }}
+            done
 
