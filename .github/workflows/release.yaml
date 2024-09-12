@@ -14,12 +14,13 @@ jobs:
 
         runs-on: ubuntu-22.04
         steps:
-            - uses: actions/checkout@v4          
+            - uses: actions/checkout@v4
               with:
                 sparse-checkout: ${{ matrix.board }}
             - name: build source package
               run: |
-                  git archive -o slint-cpp-template-${{ matrix.board }}.zip --prefix=slint-cpp-template-${{ matrix.board }}/ HEAD:${{ matrix.board }}
+                  mv ${{ matrix.board }} slint-cpp-template-${{ matrix.board }}                  
+                  zip -r slint-cpp-template-${{ matrix.board }}.zip slint-cpp-template-${{ matrix.board }}/
             - name: "Upload extension artifact"
               uses: actions/upload-artifact@v4
               with:
