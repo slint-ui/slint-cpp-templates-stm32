@@ -59,7 +59,8 @@ jobs:
 
 
     create_release:
-        needs: [test_packages]
+        #needs: [test_packages]
+        needs: [build_packages]
         runs-on: ubuntu-22.04
         env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -75,8 +76,9 @@ jobs:
         #        --prerelease
         - name: Upload Release Assets
           run: |
-            find
+            echo slint-cpp-template-*/slint-cpp-template-*.zip
             for zip slint-cpp-template-*/slint-cpp-template-*.zip; do
+                echo UPLOAD $zip
                 gh release upload nightly "$zip" --repo ${{ github.repository }}
             done
 
