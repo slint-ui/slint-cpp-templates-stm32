@@ -76,7 +76,7 @@ jobs:
         - name: Upload Release Assets
           run: |
             find
-            for zip zetal-cpp-template-*.zip; do
+            for zip slint-cpp-template-*/slint-cpp-template-*.zip; do
                 gh release upload nightly "$zip" --repo ${{ github.repository }}
             done
 
