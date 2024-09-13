@@ -56,11 +56,8 @@ jobs:
           run: |
               cmake --build --preset Debug
 
-
-
     create_release:
-        #needs: [test_packages]
-        needs: [build_packages]
+        needs: [test_packages]
         runs-on: ubuntu-22.04
         env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
