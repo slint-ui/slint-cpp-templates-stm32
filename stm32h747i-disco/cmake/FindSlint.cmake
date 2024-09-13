@@ -59,19 +59,17 @@ if (NOT DEFINED Slint_FIND_VERSION)
     return()
 endif()
 
-set(slint_version "${Slint_FIND_VERSION}")
-
-if (slint_version VERSION_LESS_EQUAL 0.0.0)
+if (Slint_FIND_VERSION VERSION_LESS_EQUAL 0.0.0)
     set(SLINT_USE_NIGHTLY_VERSION TRUE)
     # Set this to instruct the slint-compiler download to use the same release
     set(SLINT_GITHUB_RELEASE "nightly" CACHE STRING "")
     set(github_release "nightly")
 
 else()
-    set(github_release "${slint_version}")
+    set(github_release "${Slint_FIND_VERSION}")
 endif()
 
-set(prebuilt_archive_filename "Slint-cpp-${slint_version}-${SLINT_TARGET_ARCHITECTURE}.tar.gz")
+set(prebuilt_archive_filename "Slint-cpp-${github_release}-${SLINT_TARGET_ARCHITECTURE}.tar.gz")
 set(download_target_path "${CMAKE_BINARY_DIR}/slint-prebuilt/")
 set(download_url "https://github.com/slint-ui/slint/releases/download/${github_release}/${prebuilt_archive_filename}")
 
