@@ -39,7 +39,7 @@ set(SLINT_STYLE "fluent-light")
 list(PREPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 set(SLINT_TARGET_ARCHITECTURE thumbv7em-none-eabihf)
-find_package(Slint 0.0.0)
+find_package(Slint)
 
 set(DEFAULT_SLINT_EMBED_RESOURCES embed-for-software-renderer)
 
