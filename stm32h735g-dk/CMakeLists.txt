@@ -79,7 +79,7 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 )
 
 slint_target_sources(${CMAKE_PROJECT_NAME}
-    ./Core/Src/ui/appwindow.slint
+    ./Core/Src/ui/app-window.slint
 )
 
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES

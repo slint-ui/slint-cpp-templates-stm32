@@ -6,7 +6,7 @@
 #include <stm32h735g_discovery_lcd.h>
 #include <stm32h735g_discovery_ts.h>
 
-#include "appwindow.h"
+#include "app-window.h"
 
 extern "C" int appmain(void) {
   COM_InitTypeDef comlog;
