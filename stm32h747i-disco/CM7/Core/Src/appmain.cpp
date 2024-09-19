@@ -9,7 +9,7 @@
 #include <stm32h747i_discovery_qspi.h>
 #include <stm32h747i_discovery_ts.h>
 
-#include "appwindow.h"
+#include "app-window.h"
 
 extern "C" int appmain() {
   COM_InitTypeDef comlog;
