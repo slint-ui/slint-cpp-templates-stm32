@@ -41,8 +41,6 @@ list(PREPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../cmake")
 set(SLINT_TARGET_ARCHITECTURE thumbv7em-none-eabihf)
 find_package(Slint)
 
-set(DEFAULT_SLINT_EMBED_RESOURCES embed-for-software-renderer)
-
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
 
@@ -92,7 +90,11 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 )
 
 slint_target_sources(${CMAKE_PROJECT_NAME} ./Core/Src/ui/appwindow.slint)
-set_property(TARGET ${CMAKE_PROJECT_NAME} APPEND PROPERTY SLINT_SCALE_FACTOR 2)
+
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
+    SLINT_EMBED_RESOURCES embed-for-software-renderer
+    SLINT_SCALE_FACTOR 2
+)
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
