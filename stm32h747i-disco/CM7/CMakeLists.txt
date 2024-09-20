@@ -36,8 +36,6 @@ include("../gcc-arm-none-eabi.cmake")
 set(CMAKE_PROJECT_NAME slint-cpp-template-stm32h747i-disco_CM7)
 project(${CMAKE_PROJECT_NAME})
 
-set(SLINT_STYLE "fluent-light")
-
 list(PREPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../cmake")
 
 set(SLINT_TARGET_ARCHITECTURE thumbv7em-none-eabihf)

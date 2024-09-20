@@ -34,8 +34,6 @@ enable_language(C CXX ASM)
 project(${CMAKE_PROJECT_NAME})
 message("Build type: " ${CMAKE_BUILD_TYPE})
 
-set(SLINT_STYLE "fluent-light")
-
 list(PREPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 set(SLINT_TARGET_ARCHITECTURE thumbv7em-none-eabihf)
