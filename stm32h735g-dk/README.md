@@ -21,18 +21,9 @@ In order to use this template and build a C++ application, you need to install a
 
 ## Usage
 
-1. Clone or download this repository
-    ```
-    git clone https://github.com/slint-ui/slint-cpp-templates-stm32 my-project
-    cd my-project
-    cd stm32h735g-dk
-    ```
-2. Open the stm32h735g-dk folder with VS code
-   ```
-   code .
-   ```
-3. Configure the project either via "CMake: Select Configure Preset" from the command palette or the CMake extension panel.
-4. Build, Flash to Device, and debug by hitting `F5` or running the `CMake: Debug` command from the command palette.
+1. Open this folder with VS code.
+2. Configure the project either via "CMake: Select Configure Preset" from the command palette or the CMake extension panel.
+3. Build, Flash to Device, and debug by hitting `F5` or running the `CMake: Debug` command from the command palette.
 
 ## Next Steps
 
