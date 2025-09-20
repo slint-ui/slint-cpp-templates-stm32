@@ -14,7 +14,7 @@ jobs:
     build:
         strategy:
             matrix:
-                os: [ubuntu-22.04, macOS-13, macos-14, windows-2022, windows-11-arm]
+                os: [ubuntu-22.04, macos-14, windows-2022, windows-11-arm]
                 board: [stm32h735g-dk, stm32h747i-disco]
 
         runs-on: ${{ matrix.os }}
