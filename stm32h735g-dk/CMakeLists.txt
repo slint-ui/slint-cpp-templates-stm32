@@ -78,9 +78,7 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     SLINT_STM32_BSP_NAME=stm32h735g_discovery
 )
 
-slint_target_sources(${CMAKE_PROJECT_NAME}
-    ./Core/Src/ui/app-window.slint
-)
+slint_target_sources(${CMAKE_PROJECT_NAME} .)
 
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
     SLINT_EMBED_RESOURCES embed-for-software-renderer

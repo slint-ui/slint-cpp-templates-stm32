@@ -1,0 +1,4 @@
+{
+    "edition": "1.19",
+    "main": "Core/Src/ui/app-window.slint"
+}
